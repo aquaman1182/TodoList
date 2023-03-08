@@ -1,0 +1,6 @@
+package com.example.gonput_2
+
+import io.flutter.embedding.android.FlutterActivity
+
+class MainActivity: FlutterActivity() {
+}

@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "343622634281",
+    "project_id": "gonput2-251a5",
+    "storage_bucket": "gonput2-251a5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:343622634281:android:96fa2218e81199d38a0538",
+        "android_client_info": {
+          "package_name": "com.example.gonput_2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "343622634281-fo1vfvgtcqt35hnpf355nvfkaf6m4e1q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtXvJ4upUQaPI8T1L6kjpwYsnHX7-EDdc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "343622634281-fo1vfvgtcqt35hnpf355nvfkaf6m4e1q.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "343622634281-v9vdq6dv0eev6ipcv8sq4984ugspt1ba.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.gonput2"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
