@@ -1,4 +1,6 @@
+
 import 'package:flutter/material.dart';
+import 'package:gonput_2/add_todo/add_todo_page.dart';
 import 'package:gonput_2/domain/todo.dart';
 import 'package:gonput_2/todo_list/todo_list_model.dart';
 import 'package:provider/provider.dart';
@@ -18,7 +20,7 @@ class ToDoListPage extends StatelessWidget {
             final List<Todo>? todos = model.todos;
 
             if (todos == null) {
-              return CircularProgressIndicator();
+              return const CircularProgressIndicator();
             }
             final List<Widget> widgets = todos.map(
               (todo) => ListTile(
@@ -33,11 +35,23 @@ class ToDoListPage extends StatelessWidget {
         )
         
           ),
-          floatingActionButton: const FloatingActionButton(
-            onPressed: null,
-            tooltip: "Increment",
-            child: Icon(Icons.add),
-            
+          floatingActionButton: Consumer<TodoListModele>(builder: (context, model, child) {
+              return FloatingActionButton(
+                onPressed: () async{
+                   await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AddTodoPage(),
+                    fullscreenDialog: true,
+                    ),
+                  );
+                    model.fetchTodoList();
+                },
+                tooltip: "Increment",
+                child: const Icon(Icons.add),
+                
+              );
+            }
           ),
       ),
     );

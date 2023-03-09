@@ -4,26 +4,21 @@ import '../domain/todo.dart';
 
 
 class TodoListModele extends ChangeNotifier {
-  final Stream<QuerySnapshot> _usersStream = 
-  FirebaseFirestore.instance.collection('todo').snapshots();
-
+  
   List<Todo>? todos;
 
-  void fetchTodoList() {
-        _usersStream.listen((QuerySnapshot snapshot) {
+  void fetchTodoList() async {
+        final QuerySnapshot snapshot = 
+        await FirebaseFirestore.instance.collection('todo').get();
 
-          final  List<Todo> todos = snapshot.docs.map((DocumentSnapshot document) {
-           Map<String, dynamic> data =
-            document.data() as Map<String, dynamic>;
+        final  List<Todo> todos = snapshot.docs.map((DocumentSnapshot document) {
+           Map<String, dynamic> data = document.data() as Map<String, dynamic>;
             final String task = data["task"];
             final String user = data["user"];
             return Todo(task, user);
             }).toList();
-            
+
             this.todos = todos;
             notifyListeners();
-        });
-
-        
   }
 }
