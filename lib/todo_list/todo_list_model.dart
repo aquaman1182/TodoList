@@ -1,24 +1,32 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../domain/todo.dart';
 
 
 class TodoListModele extends ChangeNotifier {
-  
-  List<Todo>? todos;
+  String? name;
+  List<Todo>? todo;
 
-  void fetchTodoList() async {
+        Future <void> fetchTodoList() async {
         final QuerySnapshot snapshot = 
         await FirebaseFirestore.instance.collection('todo').get();
-
-        final  List<Todo> todos = snapshot.docs.map((DocumentSnapshot document) {
+        final  List<Todo> todo = snapshot.docs.map((DocumentSnapshot document) {
            Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+            final String id = document.id;
             final String task = data["task"];
-            final String user = data["user"];
-            return Todo(task, user);
+            return Todo(id, task);
             }).toList();
 
-            this.todos = todos;
+            this.todo = todo;
             notifyListeners();
+  }
+
+  Future delete(Todo todo) {
+    return FirebaseFirestore.instance.collection('todo').doc(todo.id).delete();
+  }
+
+  Future logout() async{
+    await FirebaseAuth.instance.signOut();
   }
 }

@@ -1,6 +1,6 @@
 
 class Todo {
-  Todo(this.task, this.user);
+  Todo(this.id ,this.task);
+  String id;
   String task;
-  String user;
 }

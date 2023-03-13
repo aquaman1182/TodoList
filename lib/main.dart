@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:gonput_2/firebase_options.dart';
-import 'package:gonput_2/todo_list/todo_list.dart';
+import 'package:gonput_2/login/login_page.dart';
 
 
 void main() async {
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "ToDoList",
-      home: ToDoListPage(),
+      home: LoginPage(),
     );
   }
 }

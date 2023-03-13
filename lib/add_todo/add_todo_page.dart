@@ -11,7 +11,7 @@ class AddTodoPage extends StatelessWidget {
        create: (_) => AddTodoModele(),
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("ToDo一覧"),
+          title: const Text("ToDoを追加"),
         ),
         body: Center(
           child: Consumer<AddTodoModele>(builder: (context, model, child) {
@@ -28,14 +28,6 @@ class AddTodoPage extends StatelessWidget {
                 ),
                 const SizedBox(
                   height: 8,
-                ),
-                  TextField(
-                  decoration: const InputDecoration(
-                    hintText: "名前を入れる"
-                  ),
-                  onChanged: (text) {
-                      model.user = text;
-                  },
                 ),
                 const SizedBox(
                   height: 16,
