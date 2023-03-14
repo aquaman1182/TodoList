@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
+  static const routeName = '/LoginPage';
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +57,7 @@ class LoginPage extends StatelessWidget {
                           // 追加の処理
                           try {
                             await model.login().then((value) => Navigator.push(context, MaterialPageRoute(
-                              builder: (context) => ToDoListPage()
+                              builder: (context) => TodoListPage()
                             )));
                           } catch (e) {
                             final snackBar = SnackBar(

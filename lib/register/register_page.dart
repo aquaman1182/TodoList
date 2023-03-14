@@ -1,15 +1,12 @@
-import 'package:gonput_2/register/register_model.dart';
+
 import 'package:flutter/material.dart';
+import 'package:gonput_2/register/register_model.dart';
 import 'package:provider/provider.dart';
 
-class RegisterPage extends StatefulWidget {
-  const RegisterPage({super.key});
 
-  @override
-  State<RegisterPage> createState() => _RegisterPageState();
-}
+class RegisterPage extends StatelessWidget {
+  const RegisterPage({Key? key}) : super(key: key);
 
-class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<RegisterModel>(
@@ -29,7 +26,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       TextField(
                         controller: model.titleController,
                         decoration: const InputDecoration(
-                         hintText: 'Email',
+                          hintText: 'Email',
                         ),
                         onChanged: (text) {
                           model.setEmail(text);
@@ -58,7 +55,6 @@ class _RegisterPageState extends State<RegisterPage> {
                           // 追加の処理
                           try {
                             await model.signUp();
-                            if (!mounted) return;
                             Navigator.of(context).pop();
                           } catch (e) {
                             final snackBar = SnackBar(
