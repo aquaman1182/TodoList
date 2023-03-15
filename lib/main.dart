@@ -34,48 +34,41 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         initialRoute: '/',
-        routes: {
-          '/': (context) => LoginPage(),
-          AddTodoPage.routeName: (context) => AddTodoPage(),
-          TodoListPage.routeName: (context) => TodoListPage(),
-          MyPage.routeName: (context) => MyPage(),
-          EditProfilePage.routeName: (context) => EditProfilePage(""),
-        },
+        onGenerateRoute: (settings) {
+    if (settings.name == '/') {
+      return MaterialPageRoute(
+        builder: (context) => LoginPage(), // あなたのホームページウィジェットに置き換えてください。
+      );
+    }
+    if (settings.name == TodoListPage.routeName) {
+      return MaterialPageRoute(
+        builder: (context) => TodoListPage());
+    }
+    if (settings.name == EditProfilePage.routeName) {
+      final String name = settings.arguments as String;
+      return MaterialPageRoute(
+        builder: (context) => EditProfilePage(name),
+      );
+    }
+    if (settings.name == MyPage.routeName) {
+      return MaterialPageRoute(
+        builder: (context) => MyPage(),
+      );
+    }
+    if (settings.name == LoginPage.routeName) {
+      return MaterialPageRoute(
+        builder: (context) => LoginPage(),
+      );
+    }
+    if (settings.name == AddTodoPage.routeName) {
+      return MaterialPageRoute(
+        builder: (context) => AddTodoPage(),
+      );
+    }
+    // 他のルートの設定もここに追加できます。
+    return null;
+  },
       ),
     );
   }
 }
-
-// import 'package:firebase_core/firebase_core.dart';
-// import 'package:flutter/material.dart';
-// import 'package:gonput_2/add_todo/add_todo_page.dart';
-// import 'package:gonput_2/login/login_page.dart';
-// import 'package:gonput_2/mypage/my_page.dart';
-// import 'package:gonput_2/todo_list/todo_list.dart';
-
-// void main() async {
-//   WidgetsFlutterBinding.ensureInitialized();
-//   await Firebase.initializeApp();
-//   runApp(const MyApp());
-// }
-
-// class MyApp extends StatelessWidget {
-//   const MyApp({Key? key}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       title: 'Gonput',
-//       theme: ThemeData(
-//         primarySwatch: Colors.blue,
-//       ),
-//       initialRoute: LoginPage.routeName,
-//       routes: {
-//         LoginPage.routeName: (context) => const LoginPage(),
-//         MyPage.routeName: (context) =>  MyPage(),
-//         TodoListPage.routeName: (context) => const TodoListPage(),
-//         AddTodoPage.routeName: (context) =>  AddTodoPage(),
-//       },
-//     );
-//   }
-// }

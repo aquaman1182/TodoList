@@ -3,8 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class EditProfileModel extends ChangeNotifier {
-  EditProfileModel(this.name) {
-    nameController.text = name!;
+  final String? someArgument;
+  EditProfileModel({this.someArgument}) {
+    nameController.text = name ?? "";
   }
 
   final nameController = TextEditingController();

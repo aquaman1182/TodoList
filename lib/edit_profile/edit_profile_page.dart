@@ -11,7 +11,7 @@ class EditProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<EditProfileModel>(
-      create: (_) => EditProfileModel(name),
+      create: (_) => EditProfileModel(),
       child: Scaffold(
         appBar: AppBar(
           title: const Text('プロフィール編集'),

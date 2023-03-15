@@ -22,11 +22,10 @@ class MyPage extends StatelessWidget {
             IconButton(
               icon: const Icon(Icons.edit),
               onPressed: () {
-                final name = Provider.of<MyModel>(context, listen: false).name;
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => EditProfilePage(name ?? ""),
-                  ),
+                final name = Provider.of<MyModel>(context, listen: false).name ?? "";
+                Navigator.of(context).pushNamed(
+                  EditProfilePage.routeName,
+                  arguments: name,
                 );
               },
             ),
@@ -97,76 +96,3 @@ class MyPage extends StatelessWidget {
     );
   }
 }
-
-
-// import 'package:flutter/material.dart';
-// import 'package:gonput_2/mypage/my_model.dart';
-// import 'package:provider/provider.dart';
-
-// class MyPage extends StatelessWidget {
-//   static const routeName = '/MyPage';
-
-//   const MyPage({Key? key}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: const Text("マイページ"),
-//       ),
-//       body: Center(
-//         child: Consumer<MyModel>(
-//           builder: (context, model, child) {
-//             return Stack(
-//               children: [
-//                 Padding(
-//                   padding: const EdgeInsets.all(8.0),
-//                   child: Column(
-//                     children: [
-//                       TextField(
-//                         decoration: InputDecoration(
-//                           hintText: "名前を入力してください",
-//                         ),
-//                         onChanged: (text) {
-//                           model.name = text;
-//                         },
-//                       ),
-//                       ElevatedButton(
-//                         onPressed: () {
-//                           showDialog(
-//                             context: context,
-//                             builder: (BuildContext context) {
-//                               return AlertDialog(
-//                                 title: const Text('保存しました'),
-//                                 actions: <Widget>[
-//                                   TextButton(
-//                                     child: const Text('OK'),
-//                                     onPressed: () {
-//                                       Navigator.of(context).pop();
-//                                     },
-//                                   ),
-//                                 ],
-//                               );
-//                             },
-//                           );
-//                         },
-//                         child: const Text("保存"),
-//                       ),
-//                     ],
-//                   ),
-//                 ),
-//                 if (model.isLoading)
-//                   Container(
-//                     color: Colors.black54,
-//                     child: const Center(
-//                       child: CircularProgressIndicator(),
-//                     ),
-//                   ),
-//               ],
-//             );
-//           },
-//         ),
-//       ),
-//     );
-//   }
-// }

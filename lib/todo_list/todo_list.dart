@@ -24,25 +24,22 @@ class TodoListPage extends StatelessWidget {
           appBar: AppBar(
             title: const Text("ToDo一覧"),
             actions: [
-              IconButton(
-                icon: const Icon(Icons.logout),
-                onPressed: () async {
-                  await Provider.of<TodoListModel>(context, listen: false)
-                      .logout();
-                  Navigator.pushNamedAndRemoveUntil(
-                      context, LoginPage.routeName, (_) => false);
-                },
+              Builder(
+                builder: (innerContext) => IconButton(
+                  icon: const Icon(Icons.logout),
+                  onPressed: () async {
+                    await Provider.of<TodoListModel>(innerContext, listen: false)
+                        .logout();
+                    Navigator.pushNamedAndRemoveUntil(
+                        innerContext, LoginPage.routeName, (_) => false);
+                  },
+                ),
               ),
             ],
           ),
           body: Center(
-            child: Consumer2<TodoListModel, MyModel>(
-              builder: (
-                context,
-                todoListModel,
-                myModel,
-                child,
-              ) {
+            child: Consumer<TodoListModel>(
+                builder: (context, todoListModel, child) {
                 final List<Todo>? todo = todoListModel.todoList;
                 if (todo == null) {
                   return const CircularProgressIndicator();
@@ -52,7 +49,7 @@ class TodoListPage extends StatelessWidget {
                     .map(
                       (todo) => ListTile(
                         title: Text(todo.task),
-                        subtitle: Text(myModel.name ?? ""),
+                        subtitle: Text(todo.name),
                         trailing: IconButton(
                           icon: const Icon(Icons.delete),
                           onPressed: () async {

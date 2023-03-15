@@ -8,26 +8,36 @@ class TodoListModel extends ChangeNotifier {
   List<Todo>? todoList;
 
   Future<void> fetchTodoList() async {
-    await Firebase.initializeApp();
-    final user = FirebaseAuth.instance.currentUser;
-    if (user == null) return;
+  await Firebase.initializeApp();
+  final user = FirebaseAuth.instance.currentUser;
+  if (user == null) return;
 
-    final snapshot = await FirebaseFirestore.instance
-        .collection('todo')
-        .where('userId', isEqualTo: user.uid)
+  final snapshot = await FirebaseFirestore.instance
+      .collection('todo')
+      .where('userId', isEqualTo: user.uid)
+      .get();
+
+  final List<Todo> todo = [];
+
+  for (final doc in snapshot.docs) {
+    final id = doc.id;
+    final data = doc.data();
+    final task = data['task'];
+    final userId = data['userId'];
+
+    final userSnapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userId)
         .get();
+    final userData = userSnapshot.data();
+    final name = userData?['name'] ?? '';
 
-    final List<Todo> todos = snapshot.docs.map((doc) {
-      final id = doc.id;
-      final data = doc.data();
-      final task = data['task'];
-      return Todo(id, task);
-    }).toList();
-
-    todoList = todos;
-    notifyListeners();
+    todo.add(Todo(id, task, name));
   }
 
+  todoList = todo;
+  notifyListeners();
+}
   Future<void> delete(Todo todo) async {
     await FirebaseFirestore.instance.collection('todo').doc(todo.id).delete();
     await fetchTodoList();
