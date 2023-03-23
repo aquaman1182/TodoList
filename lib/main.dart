@@ -1,5 +1,3 @@
-import 'dart:js';
-
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:go_router/go_router.dart';
@@ -10,9 +8,6 @@ import 'package:gonput_2/view/login_page.dart';
 import 'package:gonput_2/view/my_page.dart';
 import 'package:gonput_2/view/register_page.dart';
 import 'package:gonput_2/view/todo_list.dart';
-import 'package:gonput_2/viewmodels/add_todo_view_model.dart';
-import 'package:gonput_2/viewmodels/edit_profile_view_model.dart';
-import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

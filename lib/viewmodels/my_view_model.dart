@@ -1,32 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:gonput_2/models/my_repository.dart';
+import 'package:gonput_2/models/db/database_manager.dart';
 
 class MyViewModel extends ChangeNotifier {
-  final MyRepository _myRepository = MyRepository();
-  bool isLoading = false;
-  bool isFetched = false;
-  String? email;
   String? name;
+  String? email;
+  bool isFetched = false;
+  final DatabaseManager _databaseManager;
 
-  void startLoading() {
-    isLoading = true;
-    notifyListeners();
-  }
-
-  void endLoading() {
-    isLoading = false;
-    notifyListeners();
+  MyViewModel({required DatabaseManager databaseManager})
+      : _databaseManager = databaseManager {
+    fetchUser();
   }
 
   Future<void> fetchUser() async {
-    startLoading();
-    final userData = await _myRepository.fetchUser();
+    final userData = await _databaseManager.fetchUser();
+
     if (userData != null) {
-      email = userData['email'];
       name = userData['name'];
-      isFetched = true;
+      email = userData['email'];
     }
-    endLoading();
+
+    isFetched = true;
     notifyListeners();
   }
 }

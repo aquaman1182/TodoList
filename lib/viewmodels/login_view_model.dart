@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:gonput_2/models/login_auth_repository.dart';
+import 'package:gonput_2/models/db/database_manager.dart';
+import 'package:gonput_2/models/repository/login_auth_repository.dart';
 
 class LoginViewModel extends ChangeNotifier {
   final titleController = TextEditingController();
   final authorController = TextEditingController();
-  final AuthRepository _authRepository;
-
-  LoginViewModel({required AuthRepository authRepository}) : _authRepository = authRepository;
+final AuthRepository _authRepository = AuthRepository(databaseManager: DatabaseManager());
 
 
   String? email;

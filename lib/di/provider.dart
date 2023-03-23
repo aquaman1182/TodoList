@@ -1,7 +1,6 @@
-import 'package:flutter/widgets.dart';
-import 'package:gonput_2/models/login_auth_repository.dart';
-import 'package:gonput_2/models/register_repository.dart';
-import 'package:gonput_2/models/todo_repository.dart';
+
+import 'package:flutter/material.dart';
+import 'package:gonput_2/models/db/database_manager.dart';
 import 'package:gonput_2/viewmodels/my_view_model.dart';
 import 'package:gonput_2/viewmodels/register_view_model.dart';
 import 'package:gonput_2/viewmodels/todo_list_view_model.dart';
@@ -19,11 +18,11 @@ class AppProviders extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<LoginViewModel>(create: (_) => LoginViewModel(authRepository: AuthRepository())),
-        ChangeNotifierProvider<RegisterViewModel>(create: (_) => RegisterViewModel(registerRepository: RegisterRepository())),
-        ChangeNotifierProvider<TodoListViewModel>(create: (_) => TodoListViewModel(todoListRepository: TodoListRepository())),
+        ChangeNotifierProvider<LoginViewModel>(create: (_) => LoginViewModel()),
+        ChangeNotifierProvider<RegisterViewModel>(create: (_) => RegisterViewModel()),
+        ChangeNotifierProvider<TodoListViewModel>(create: (_) => TodoListViewModel()),
         ChangeNotifierProvider<AddTodoViewModel>(create: (_) => AddTodoViewModel()),
-        ChangeNotifierProvider<MyViewModel>(create: (_) => MyViewModel()),
+        ChangeNotifierProvider<MyViewModel>(create: (_) => MyViewModel(databaseManager: DatabaseManager())),
         ChangeNotifierProvider<EditProfileViewModel>(create: (_) => EditProfileViewModel()),
       ],
       child: child,

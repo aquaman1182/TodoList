@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gonput_2/view/components/bottom_navigation.dart';
@@ -10,17 +9,17 @@ class MyPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser;
-    final email = user?.email ?? '';
-
+    final myViewModel = context.read<MyViewModel>();
+    myViewModel.fetchUser();
     return Scaffold(
       appBar: AppBar(
         title: const Text('マイページ'),
         actions: [
           IconButton(
             icon: const Icon(Icons.edit),
-            onPressed: () {
+            onPressed: () async{
               context.go("/edit_profile_page/:name");
+              await myViewModel.fetchUser(); 
             },
           ),
         ],
@@ -47,7 +46,7 @@ class MyPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    email,
+                    model.email ?? '',
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,

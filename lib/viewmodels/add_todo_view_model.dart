@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:gonput_2/models/add_todo_repository.dart';
-import 'package:gonput_2/models/todo_repository.dart';
-import 'package:gonput_2/viewmodels/todo_list_view_model.dart';
+import 'package:gonput_2/models/repository/add_todo_repository.dart';
+import 'package:gonput_2/models/db/database_manager.dart';
+import 'package:gonput_2/models/repository/todo_repository.dart';
 
 class AddTodoViewModel extends ChangeNotifier {
   String task = '';
-  final AddTodoRepository _addTodoRepository = AddTodoRepository();
-  final TodoListRepository _todoListRepository = TodoListRepository();
+  final AddTodoRepository _addTodoRepository = AddTodoRepository(databaseManager: DatabaseManager());
+  final TodoListRepository _todoListRepository = TodoListRepository(databaseManager: DatabaseManager());
 
   void updateTask(String value) {
     task = value;
@@ -17,12 +17,11 @@ class AddTodoViewModel extends ChangeNotifier {
     await _addTodoRepository.addTodo(task);
 
     // 更新されたデータを再取得する
-    final todoListViewModel = TodoListViewModel(todoListRepository: _todoListRepository); // 修正: 名前付き引数を使用
-    await todoListViewModel.fetchTodoList();
-    todoListViewModel.update(todoListViewModel.todoList!);
+    await _todoListRepository.fetchTodoList();
   }
 
   void setTask(String text) {
     task = text;
   }
 }
+

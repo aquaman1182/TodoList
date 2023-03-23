@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:gonput_2/models/register_repository.dart';
+import 'package:gonput_2/models/db/database_manager.dart';
+import 'package:gonput_2/models/repository/register_repository.dart';
 
 class RegisterViewModel extends ChangeNotifier {
-  final RegisterRepository _registerRepository;
-
-  RegisterViewModel({required RegisterRepository registerRepository})
-      : _registerRepository = registerRepository;
+  final RegisterRepository _registerRepository = RegisterRepository(databaseManager: DatabaseManager());
 
   final titleController = TextEditingController();
   final authorController = TextEditingController();
@@ -33,6 +31,8 @@ class RegisterViewModel extends ChangeNotifier {
   }
 
   Future<void> signUp() async {
-    await _registerRepository.signUp();
+    String? email;
+    String? password;
+    await _registerRepository.signUp(email!, password!);
   }
 }

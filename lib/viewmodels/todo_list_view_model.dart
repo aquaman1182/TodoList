@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:gonput_2/models/todo_repository.dart';
+import 'package:gonput_2/models/db/database_manager.dart';
+import 'package:gonput_2/models/repository/todo_repository.dart';
 import '../domain/todo.dart';
 
 class TodoListViewModel extends ChangeNotifier {
   List<Todo>? todoList;
-  final TodoListRepository _todoListRepository;
-
-  TodoListViewModel({required TodoListRepository todoListRepository}) : _todoListRepository = todoListRepository;
+  final TodoListRepository _todoListRepository = TodoListRepository(databaseManager: DatabaseManager());
 
   
 

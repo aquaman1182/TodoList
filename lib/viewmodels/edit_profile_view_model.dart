@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:gonput_2/models/edit_profile_repository.dart';
+import 'package:gonput_2/models/db/database_manager.dart';
+import 'package:gonput_2/models/repository/edit_profile_repository.dart';
 
 class EditProfileViewModel extends ChangeNotifier {
-  final EditProfileRepository _editProfileRepository = EditProfileRepository();
+  final EditProfileRepository _editProfileRepository = EditProfileRepository(databaseManager: DatabaseManager());
 
   EditProfileViewModel() {
     nameController.text = name ?? "";
