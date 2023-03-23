@@ -1,6 +1,9 @@
+import 'dart:js';
+
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:go_router/go_router.dart';
+import 'package:gonput_2/di/provider.dart';
 import 'package:gonput_2/view/add_todo_page.dart';
 import 'package:gonput_2/view/edit_profile_page.dart';
 import 'package:gonput_2/view/login_page.dart';
@@ -14,70 +17,63 @@ import 'package:provider/provider.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(MyApp());
+  runApp(AppProviders(child: MyApp()));
 }
 
   final GoRouter _goRouter = GoRouter(
-    routes: [
-      GoRoute(
-        path: '/',
-        pageBuilder: (BuildContext context, GoRouterState state) => MaterialPage(
-            key: state.pageKey,
-            child: LoginPage(),
-        ),
+  routes: [
+    GoRoute(
+      path: '/',
+      pageBuilder: (BuildContext context, GoRouterState state) => MaterialPage(
+        key: state.pageKey,
+        child: LoginPage(),
       ),
-      
-      GoRoute(
-        path: '/register',
-        pageBuilder: (BuildContext context, GoRouterState state) => MaterialPage(
-            key: state.pageKey,
-            child: RegisterPage()
-        )
+    ),
+    GoRoute(
+      path: '/register',
+      pageBuilder: (BuildContext context, GoRouterState state) => MaterialPage(
+        key: state.pageKey,
+        child: RegisterPage(),
       ),
-      GoRoute(
-        path: '/todo_list',
-        pageBuilder: (BuildContext context, GoRouterState state) => MaterialPage(
-            key: state.pageKey,
-            child: TodoListPage()
-        ),
+    ),
+    GoRoute(
+      path: '/todo_list',
+      pageBuilder: (BuildContext context, GoRouterState state) => MaterialPage(
+        key: state.pageKey,
+        child: TodoListPage(),
       ),
-      GoRoute(
-        name: "add_todo",
-        path: '/add_todo',
-        pageBuilder: (context, state) {
-          return MaterialPage(
-             key: state.pageKey,
-             child: ChangeNotifierProvider<AddTodoViewModel>(
-              create: (_) => AddTodoViewModel(),
-              child: AddTodoPage(),
-            ),
-          );
-        },
-      ),
-      GoRoute(
-        path: '/my_page',
-        pageBuilder: (context, state) {
-          return MaterialPage(
-            key: state.pageKey,
-            child: MyPage(),
-          );
-        },
-      ),
-      GoRoute(
-        path: '/edit_profile_page/:name',
-        pageBuilder: (context, state) {
-          final name = state.params['name'] ?? '名無しの権兵衛';
-          return MaterialPage(
-            key: state.pageKey,
-            child: ChangeNotifierProvider<EditProfileViewModel>(
-              create: (_) => EditProfileViewModel(),
-              child: EditProfilePage(name),
-            ),
-          );
-        },
-      ),
-    ],
-  );
+    ),
+    GoRoute(
+      name: "add_todo",
+      path: '/add_todo',
+      pageBuilder: (context, state) {
+        return MaterialPage(
+          key: state.pageKey,
+          child: AddTodoPage(),
+        );
+      },
+    ),
+    GoRoute(
+      path: '/my_page',
+      pageBuilder: (context, state) {
+        return MaterialPage(
+          key: state.pageKey,
+          child: MyPage(),
+        );
+      },
+    ),
+    GoRoute(
+      path: '/edit_profile_page/:name',
+      pageBuilder: (context, state) {
+        final name = state.params['name'] ?? '名無しの権兵衛';
+        return MaterialPage(
+          key: state.pageKey,
+          child: EditProfilePage(name),
+        );
+      },
+    ),
+  ],
+);
 
 class MyApp extends StatelessWidget {
   @override
@@ -88,7 +84,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       routerConfig: _goRouter,
-      debugShowCheckedModeBanner: false, 
+      debugShowCheckedModeBanner: false,
     );
   }
 }
