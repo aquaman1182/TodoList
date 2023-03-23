@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:gonput_2/domain/userdata/userclassdata.dart';
-import 'package:gonput_2/models/db/database_manager.dart';
 import 'package:gonput_2/models/repository/my_repository.dart'; // 追加: DatabaseManagerをインポート
 
 class MyViewModel extends ChangeNotifier {
   String? name;
   UserClassData? user; // 追加: UserClassDataオブジェクトを追加
-  final MyRepository _myRepository = MyRepository(databaseManager: DatabaseManager());
+  final MyRepository _myRepository;
+
+  MyViewModel({required MyRepository myRepository}) : _myRepository = myRepository;
 
   bool _isFetched = false;
   

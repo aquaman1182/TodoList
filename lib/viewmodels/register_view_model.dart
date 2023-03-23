@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:gonput_2/models/db/database_manager.dart';
 import 'package:gonput_2/models/repository/register_repository.dart';
 
 class RegisterViewModel extends ChangeNotifier {
-  final RegisterRepository _registerRepository = RegisterRepository(databaseManager: DatabaseManager());
+  final RegisterRepository _registerRepository;
+
+  RegisterViewModel({required RegisterRepository registerRepository}) : _registerRepository = registerRepository;
 
   final titleController = TextEditingController();
   final authorController = TextEditingController();
