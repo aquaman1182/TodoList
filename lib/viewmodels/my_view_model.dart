@@ -1,26 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:gonput_2/domain/userdata/userclassdata.dart';
 import 'package:gonput_2/models/db/database_manager.dart';
+import 'package:gonput_2/models/repository/my_repository.dart'; // 追加: DatabaseManagerをインポート
 
 class MyViewModel extends ChangeNotifier {
   String? name;
-  String? email;
-  bool isFetched = false;
-  final DatabaseManager _databaseManager;
+  UserClassData? user; // 追加: UserClassDataオブジェクトを追加
+  final MyRepository _myRepository = MyRepository(databaseManager: DatabaseManager());
 
-  MyViewModel({required DatabaseManager databaseManager})
-      : _databaseManager = databaseManager {
-    fetchUser();
+  bool _isFetched = false;
+  
+  bool get isFetched => _isFetched;
+
+Future<void> fetchUser() async {
+  final userData = await _myRepository.getUser();
+  if (userData != null) {
+    name = userData['name'];
+
+    // 追加: UserClassDataオブジェクトを作成
+    user = UserClassData(
+      uid: userData['uid'] ?? '',
+      name: userData['name'] ?? '',
+      email: userData['email'] ?? '',
+    );
+  } else {
+    // デフォルト値を設定
+    name = '';
+    user = UserClassData(uid: '', name: '', email: '');
   }
-
-  Future<void> fetchUser() async {
-    final userData = await _databaseManager.fetchUser();
-
-    if (userData != null) {
-      name = userData['name'];
-      email = userData['email'];
-    }
-
-    isFetched = true;
+    
+    _isFetched = true;
     notifyListeners();
   }
 }

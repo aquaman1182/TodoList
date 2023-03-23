@@ -31,4 +31,8 @@ class MyRepository {
   Future<Map<String, String?>?> fetchUser() async {
     return await _databaseManager.fetchUser();
   }
+
+    Future<Map<String, String?>?> getUser() async {
+    return await _databaseManager.fetchUser();
+  }
 }

@@ -38,7 +38,7 @@ class MyPage extends StatelessWidget {
                 children: [
                   const SizedBox(height: 16),
                   Text(
-                    model.name ?? '名無しの権兵衛',
+                    model.user?.name ?? '名無しの権兵衛',
                     style: const TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -46,7 +46,7 @@ class MyPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    model.email ?? '',
+                    model.user?.email ?? '',
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,

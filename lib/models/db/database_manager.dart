@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:gonput_2/domain/todo.dart';
+import 'package:gonput_2/domain/tododata/todo.dart';
 
 class DatabaseManager {
   Future<void> addTodo(String task) async {

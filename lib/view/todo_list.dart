@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:gonput_2/domain/todo.dart';
+import 'package:gonput_2/domain/tododata/todo.dart';
 import 'package:gonput_2/view/components/bottom_navigation.dart';
 import 'package:gonput_2/viewmodels/todo_list_view_model.dart';
 import 'package:provider/provider.dart';

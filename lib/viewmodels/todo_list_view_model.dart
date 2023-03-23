@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gonput_2/models/db/database_manager.dart';
 import 'package:gonput_2/models/repository/todo_repository.dart';
-import '../domain/todo.dart';
+import '../domain/tododata/todo.dart';
 
 class TodoListViewModel extends ChangeNotifier {
   List<Todo>? todoList;
