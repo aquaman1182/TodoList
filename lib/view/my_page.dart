@@ -45,7 +45,7 @@ class MyPage extends StatelessWidget {
                   children: [
                     const SizedBox(height: 16),
                     Text(
-                      model.name ?? '',
+                      model.name ?? '名無しの権兵衛',
                       style: const TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
