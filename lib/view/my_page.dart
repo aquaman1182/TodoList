@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:gonput_2/edit_profile/edit_profile_page.dart';
-import 'package:gonput_2/mypage/my_model.dart';
-import 'package:gonput_2/todo_list/todo_list.dart';
+import 'package:go_router/go_router.dart';
+import 'package:gonput_2/view/components/bottom_navigation.dart';
+import 'package:gonput_2/viewmodels/my_view_model.dart';
 import 'package:provider/provider.dart';
 
 class MyPage extends StatelessWidget {
@@ -13,8 +13,12 @@ class MyPage extends StatelessWidget {
     final user = FirebaseAuth.instance.currentUser;
     final email = user?.email ?? '';
 
-    return ChangeNotifierProvider<MyModel>(
-      create: (_) => MyModel()..fetchUser(),
+    return ChangeNotifierProvider<MyViewModel>(
+      create: (_) {
+        final viewModel = MyViewModel();
+        viewModel.fetchUser();
+        return viewModel;
+      },
       child: Scaffold(
         appBar: AppBar(
           title: const Text('マイページ'),
@@ -22,17 +26,13 @@ class MyPage extends StatelessWidget {
             IconButton(
               icon: const Icon(Icons.edit),
               onPressed: () {
-                final name = Provider.of<MyModel>(context, listen: false).name ?? "";
-                Navigator.of(context).pushNamed(
-                  EditProfilePage.routeName,
-                  arguments: name,
-                );
+                context.go("/edit_profile_page/:name");
               },
             ),
           ],
         ),
         body: Center(
-          child: Consumer<MyModel>(
+          child: Consumer<MyViewModel>(
             builder: (context, model, child) {
               if (!model.isFetched) {
                 return const CircularProgressIndicator();
@@ -65,33 +65,7 @@ class MyPage extends StatelessWidget {
             },
           ),
         ),
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: 1,
-          onTap: (index) {
-            switch (index) {
-              case 0:
-              Navigator.pushNamed(
-                  context,
-                  TodoListPage.routeName,
-                );
-                break;
-              case 1:
-                break;
-              
-            }
-          },
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.list),
-              label: "TodoList"
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: "MyPage"
-            ),
-            
-          ],
-        ),
+        bottomNavigationBar: CustomBottomNavigationBar(currentIndex: 1),
       ),
     );
   }

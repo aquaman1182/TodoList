@@ -1,6 +1,7 @@
-
 import 'package:flutter/material.dart';
-import 'package:gonput_2/register/register_model.dart';
+import 'package:go_router/go_router.dart';
+import 'package:gonput_2/models/register_repository.dart';
+import 'package:gonput_2/viewmodels/register_view_model.dart';
 import 'package:provider/provider.dart';
 
 
@@ -9,14 +10,14 @@ class RegisterPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<RegisterModel>(
-      create: (_) => RegisterModel(),
+    return ChangeNotifierProvider<RegisterViewModel>(
+      create: (_) => RegisterViewModel(registerRepository: RegisterRepository()),
       child: Scaffold(
         appBar: AppBar(
           title: const Text('新規登録'),
         ),
         body: Center(
-          child: Consumer<RegisterModel>(builder: (context, model, child) {
+          child: Consumer<RegisterViewModel>(builder: (context, model, child) {
             return Stack(
               children: [
                 Padding(
@@ -55,7 +56,7 @@ class RegisterPage extends StatelessWidget {
                           // 追加の処理
                           try {
                             await model.signUp();
-                            Navigator.of(context).pop();
+                            context.go("/");
                           } catch (e) {
                             final snackBar = SnackBar(
                               backgroundColor: Colors.red,

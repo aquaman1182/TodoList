@@ -1,7 +1,15 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class Todo {
-  Todo(this.id ,this.task, this.name);
-  String id;
-  String task;
-  String name;
+part 'todo.freezed.dart';
+part 'todo.g.dart';
+
+@freezed
+class Todo with _$Todo {
+  const factory Todo({
+    required String id,
+    required String task,
+    required String name,// userId プロパティを追加
+  }) = _Todo;
+
+  factory Todo.fromJson(Map<String, dynamic> json) => _$TodoFromJson(json);
 }

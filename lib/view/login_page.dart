@@ -1,32 +1,30 @@
-import 'package:gonput_2/login/login_model.dart';
-import 'package:gonput_2/register/register_page.dart';
 import 'package:flutter/material.dart';
-import 'package:gonput_2/todo_list/todo_list.dart';
+import 'package:go_router/go_router.dart';
+import 'package:gonput_2/models/login_auth_repository.dart';
+import 'package:gonput_2/viewmodels/login_view_model.dart';
 import 'package:provider/provider.dart';
-  
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
   static const routeName = '/LoginPage';
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<LoginModel>(
-      create: (_) => LoginModel(),
+    return ChangeNotifierProvider<LoginViewModel>(
+      create: (_) => LoginViewModel(authRepository: AuthRepository()),
       child: Scaffold(
         appBar: AppBar(
           title: const Text('ログイン'),
         ),
         body: Center(
-          child: Consumer<LoginModel>(builder: (context, model, child) {
+          child: Consumer<LoginViewModel>(builder: (context, model, child) {
             return Stack(
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
                     children: [
-                       TextField(
-                       controller: model.titleController,
+                      TextField(
+                        controller: model.titleController,
                         decoration: const InputDecoration(
                           hintText: 'Email',
                         ),
@@ -42,7 +40,8 @@ class LoginPage extends StatelessWidget {
                         decoration: const InputDecoration(
                           hintText: 'パスワード',
                         ),
-                       onChanged: (text) {
+                        onChanged:
+                        (text) {
                           model.setPassword(text);
                         },
                         obscureText: true,
@@ -56,9 +55,7 @@ class LoginPage extends StatelessWidget {
 
                           // 追加の処理
                           try {
-                            await model.login().then((value) => Navigator.push(context, MaterialPageRoute(
-                              builder: (context) => TodoListPage()
-                            )));
+                            await model.login().then((value) => GoRouter.of(context).go('/todo_list'));
                           } catch (e) {
                             final snackBar = SnackBar(
                               backgroundColor: Colors.red,
@@ -73,15 +70,9 @@ class LoginPage extends StatelessWidget {
                         child: const Text('ログイン'),
                       ),
                       TextButton(
-                        onPressed: () async {
+                        onPressed: () {
                           // 画面遷移
-                          await Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const RegisterPage(),
-                              fullscreenDialog: true,
-                            ),
-                          );
+                          context.go("/register");
                         },
                         child: const Text('新規登録の方はこちら'),
                       ),
@@ -103,3 +94,4 @@ class LoginPage extends StatelessWidget {
     );
   }
 }
+

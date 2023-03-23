@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gonput_2/edit_profile/edit_profile_model.dart';
+import 'package:go_router/go_router.dart';
+import 'package:gonput_2/viewmodels/edit_profile_view_model.dart';
 import 'package:provider/provider.dart';
 
 class EditProfilePage extends StatelessWidget {
@@ -10,14 +11,12 @@ class EditProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<EditProfileModel>(
-      create: (_) => EditProfileModel(),
-      child: Scaffold(
+    return Scaffold(
         appBar: AppBar(
           title: const Text('プロフィール編集'),
         ),
         body: Center(
-          child: Consumer<EditProfileModel>(
+          child: Consumer<EditProfileViewModel>(
             builder: (context, model, child) {
               return Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -40,7 +39,7 @@ class EditProfilePage extends StatelessWidget {
                           ? () {
                               // 追加の処理
                               model.update();
-                              Navigator.of(context).pop();
+                              context.go("/my_page");
                             }
                           : null,
                       child: const Text('更新する'),
@@ -51,7 +50,6 @@ class EditProfilePage extends StatelessWidget {
             },
           ),
         ),
-      ),
     );
   }
 }

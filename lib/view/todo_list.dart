@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:gonput_2/add_todo/add_todo_page.dart';
+import 'package:go_router/go_router.dart';
 import 'package:gonput_2/domain/todo.dart';
-import 'package:gonput_2/login/login_page.dart';
-import 'package:gonput_2/mypage/my_model.dart';
-import 'package:gonput_2/mypage/my_page.dart';
-import 'package:gonput_2/todo_list/todo_list_model.dart';
+import 'package:gonput_2/models/todo_repository.dart';
+import 'package:gonput_2/view/components/bottom_navigation.dart';
+import 'package:gonput_2/viewmodels/todo_list_view_model.dart';
 import 'package:provider/provider.dart';
 
 class TodoListPage extends StatelessWidget {
@@ -14,11 +13,11 @@ class TodoListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<TodoListModel>(
-      create: (_) => TodoListModel(),
+    return ChangeNotifierProvider<TodoListViewModel>(
+      create: (_) => TodoListViewModel(todoListRepository: TodoListRepository()),
       builder: (context, child) {
         // ページ表示時に一度だけfetchTodoListを呼び出す
-        Provider.of<TodoListModel>(context, listen: false).fetchTodoList();
+        context.read<TodoListViewModel>().fetchTodoList();
 
         return Scaffold(
           appBar: AppBar(
@@ -28,17 +27,16 @@ class TodoListPage extends StatelessWidget {
                 builder: (innerContext) => IconButton(
                   icon: const Icon(Icons.logout),
                   onPressed: () async {
-                    await Provider.of<TodoListModel>(innerContext, listen: false)
+                    await context.read<TodoListViewModel>()
                         .logout();
-                    Navigator.pushNamedAndRemoveUntil(
-                        innerContext, LoginPage.routeName, (_) => false);
-                  },
+                    context.go('/');
+                  }
                 ),
               ),
             ],
           ),
           body: Center(
-            child: Consumer<TodoListModel>(
+            child: Consumer<TodoListViewModel>(
                 builder: (context, todoListModel, child) {
                 final List<Todo>? todo = todoListModel.todoList;
                 if (todo == null) {
@@ -67,29 +65,13 @@ class TodoListPage extends StatelessWidget {
           ),
           floatingActionButton: FloatingActionButton(
             onPressed: () async {
-              await Navigator.pushNamed(
-                context,
-                AddTodoPage.routeName,
-              );
-              await Provider.of<TodoListModel>(context, listen: false)
+              context.go('/add_todo');
+              await context.read<TodoListViewModel>()
                   .fetchTodoList();
             },
             child: const Icon(Icons.add),
           ),
-          bottomNavigationBar: BottomNavigationBar(
-            currentIndex: 0,
-            onTap: (int index) {
-              if (index == 1) {
-                Navigator.pushNamed(context, MyPage.routeName);
-              }
-            },
-            items: const [
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.list), label: "TodoList"),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.person), label: "MyPage"),
-            ],
-          ),
+           bottomNavigationBar: CustomBottomNavigationBar(currentIndex: 0),
         );
       },
     );

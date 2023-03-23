@@ -1,13 +1,16 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gonput_2/models/login_auth_repository.dart';
 
-class LoginModel extends ChangeNotifier {
+class LoginViewModel extends ChangeNotifier {
   final titleController = TextEditingController();
   final authorController = TextEditingController();
+  final AuthRepository _authRepository;
+
+  LoginViewModel({required AuthRepository authRepository}) : _authRepository = authRepository;
+
 
   String? email;
   String? password;
-
   bool isLoading = false;
 
   void startLoading() {
@@ -30,17 +33,10 @@ class LoginModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future login() async {
-    email = titleController.text;
-    password = authorController.text;
-
-    if (email != null && password != null) {
-      // ログイン
-      await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email!, password: password!);
-
-      final currentUser = FirebaseAuth.instance.currentUser;
-      final uid = currentUser!.uid;
-    }
+  Future<String?> login() async {
+    startLoading();
+    final String? result = await _authRepository.login(email!, password!);
+    endLoading();
+    return result;
   }
 }
