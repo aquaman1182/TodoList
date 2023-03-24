@@ -11,16 +11,35 @@ class AddTodoPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Todoを追加'),
+        leading: Builder(
+          builder: (context) => IconButton(
+            onPressed: () {
+              context.go("/todo_list");
+            },
+            icon: const Icon(Icons.arrow_back),
+          ),
+        ),
       ),
+
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
-          children: [
-            TextField(
-              autofocus: true,
-              decoration: const InputDecoration(
-                hintText: 'Taskを入力',
-              ),
+          children: <Widget>[
+            TextFormField(
+            autovalidateMode: AutovalidateMode.disabled, autofocus: true,
+            decoration: const InputDecoration(
+              labelText: "Let's add a task!", // ラベル
+              hintText: 'Taskを入力', // 入力ヒント
+            ), // 入力変化しても自動でチェックしない。trueにすると初期状態および入力が変化する毎に自動でvalidatorがコールされる
+            validator: (value) { // _formKey.currentState.validate()でコールされる
+              if (value!.isEmpty) {
+                return 'Please enter some text'; // エラー表示のメッセージを返す
+              }
+              return null; // 問題ない場合はnullを返す
+            }, 
+            onSaved: (value) => () { // this._formKey.currentState.save()でコールされる
+              print('$value');
+            },
               onChanged: (text) {
                 context.read<AddTodoViewModel>().task = text;
               },

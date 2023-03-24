@@ -20,11 +20,23 @@ class LoginPage extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
                   children: [
-                    TextField(
+                    TextFormField(
                       controller: viewModel.titleController,
                       decoration: const InputDecoration(
+                        icon: Icon(Icons.email),
+                        border: OutlineInputBorder(), // 外枠付きデザイン
+                        filled: true, // fillColorで指定した色で塗り潰し
                         hintText: 'Email',
                       ),
+                      validator: (value) { // _formKey.currentState.validate()でコールされる
+                        if (value!.isEmpty) {
+                          return 'Please enter some text'; // エラー表示のメッセージを返す
+                        }
+                        return null; // 問題ない場合はnullを返す
+                      }, 
+                      onSaved: (value) => () { // this._formKey.currentState.save()でコールされる
+                        print('$value');
+                      },                      
                       onChanged: (text) {
                         viewModel.setEmail(text);
                       },
@@ -32,11 +44,23 @@ class LoginPage extends StatelessWidget {
                     const SizedBox(
                       height: 8,
                     ),
-                    TextField(
+                    TextFormField(
                       controller: viewModel.authorController,
                       decoration: const InputDecoration(
+                        icon: Icon(Icons.key),
+                        border: OutlineInputBorder(), // 外枠付きデザイン
+                        filled: true, // fillColorで指定した色で塗り潰し
                         hintText: 'パスワード',
                       ),
+                      validator: (value) { // _formKey.currentState.validate()でコールされる
+                        if (value!.isEmpty) {
+                          return 'Please enter some text'; // エラー表示のメッセージを返す
+                        }
+                        return null; // 問題ない場合はnullを返す
+                      }, 
+                      onSaved: (value) => () { // this._formKey.currentState.save()でコールされる
+                        print('$value');
+                      },                      
                       onChanged:
                       (text) {
                         viewModel.setPassword(text);

@@ -32,35 +32,35 @@ GoRouter createGoRouter() {
           child: TodoListPage(),
         ),
       ),
-      GoRoute(
-        name: "add_todo",
-        path: '/add_todo',
-        pageBuilder: (context, state) {
-          return MaterialPage(
-            key: state.pageKey,
-            child: AddTodoPage(),
-          );
-        },
-      ),
-      GoRoute(
-        path: '/my_page',
-        pageBuilder: (context, state) {
-          return MaterialPage(
-            key: state.pageKey,
-            child: MyPage(),
-          );
-        },
-      ),
-      GoRoute(
-        path: '/edit_profile_page/:name',
-        pageBuilder: (context, state) {
-          final name = state.params['name'] ?? '名無しの権兵衛';
-          return MaterialPage(
-            key: state.pageKey,
-            child: EditProfilePage(name),
-          );
-        },
-      ),
+        GoRoute(
+          name: "add_todo",
+          path: '/add_todo',
+          pageBuilder: (context, state) {
+            return MaterialPage(
+              key: state.pageKey,
+              child: AddTodoPage(),
+            );
+          },
+        ),
+        GoRoute(
+          path: '/my_page',
+          pageBuilder: (context, state) {
+            return MaterialPage(
+              key: state.pageKey,
+              child: MyPage(),
+            );
+          },
+        ),
+        GoRoute(
+          path: '/edit_profile_page/:name',
+          pageBuilder: (context, state) {
+            final name = state.params['name'] ?? '名無しの権兵衛';
+            return MaterialPage(
+              key: state.pageKey,
+              child: EditProfilePage(name),
+            );
+          },
+        ),
     ],
   );
 }

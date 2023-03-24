@@ -15,17 +15,36 @@ class EditProfilePage extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: const Text('プロフィール編集'),
+            leading: Builder(
+              builder: (context) => IconButton(
+                onPressed: () {
+                  context.go("/my_page");
+                },
+                icon: const Icon(Icons.arrow_back),
+              ),
+            ),
         ),
         body: Center(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
-                TextField(
+                TextFormField(
+                  autovalidateMode: AutovalidateMode.disabled, autofocus: true,
                   controller: viewModel.nameController,
                   decoration: const InputDecoration(
+                    labelText: "Enter your name",
                     hintText: '名前',
                   ),
+                  validator: (value) { // _formKey.currentState.validate()でコールされる
+                    if (value!.isEmpty) {
+                      return 'Please enter some text'; // エラー表示のメッセージを返す
+                    }
+                    return null; // 問題ない場合はnullを返す
+                  }, 
+                  onSaved: (value) => () { // this._formKey.currentState.save()でコールされる
+                    print('$value');
+                  },
                   onChanged: (text) {
                     viewModel.setName(text);
                   },
