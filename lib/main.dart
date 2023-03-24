@@ -12,7 +12,12 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   final goRouter = createGoRouter(); // 追加: goRouterを作成
-  runApp(MultiProvider(providers: globalProviders, child: MyApp(goRouter: goRouter)));
+  runApp(
+    MultiProvider(
+      providers: globalProviders,
+      child: MyApp(goRouter: goRouter),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
