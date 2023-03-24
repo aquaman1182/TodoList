@@ -17,9 +17,9 @@ class MyPage extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.edit),
-            onPressed: () async{
+            onPressed: () async {
               context.go("/edit_profile_page/:name");
-              await myViewModel.fetchUser(); 
+              await myViewModel.fetchUser();
             },
           ),
         ],
@@ -30,7 +30,7 @@ class MyPage extends StatelessWidget {
             if (!model.isFetched) {
               return const CircularProgressIndicator();
             }
-
+            //test
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
