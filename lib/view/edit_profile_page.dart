@@ -11,7 +11,7 @@ class EditProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = context.watch<EditProfileViewModel>();
+    final EditProfileViewModel editProfileViewModel = context.read();
     return Scaffold(
         appBar: AppBar(
           title: const Text('プロフィール編集'),
@@ -31,7 +31,7 @@ class EditProfilePage extends StatelessWidget {
               children: [
                 TextFormField(
                   autovalidateMode: AutovalidateMode.disabled, autofocus: true,
-                  controller: viewModel.nameController,
+                  controller: editProfileViewModel.nameController,
                   decoration: const InputDecoration(
                     labelText: "Enter your name",
                     hintText: '名前',
@@ -46,17 +46,17 @@ class EditProfilePage extends StatelessWidget {
                     print('$value');
                   },
                   onChanged: (text) {
-                    viewModel.setName(text);
+                    editProfileViewModel.setName(text);
                   },
                 ),
                 const SizedBox(
                   height: 8,
                 ),
                 ElevatedButton(
-                  onPressed: viewModel.isUpdated()
+                  onPressed: editProfileViewModel.isUpdated()
                       ? () {
                           // 追加の処理
-                          viewModel.update();
+                          editProfileViewModel.update();
                           context.go("/my_page");
                         }
                       : null,

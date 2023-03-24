@@ -9,7 +9,7 @@ class MyPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final myViewModel = context.read<MyViewModel>();
+    final MyViewModel myViewModel = context.read();
     myViewModel.fetchUser();
     return Scaffold(
       appBar: AppBar(

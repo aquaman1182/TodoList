@@ -8,7 +8,7 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = context.watch<LoginViewModel>();
+    final LoginViewModel loginViewModel = context.read();
     return Scaffold(
         appBar: AppBar(
           title: const Text('ログイン'),
@@ -21,7 +21,7 @@ class LoginPage extends StatelessWidget {
                 child: Column(
                   children: [
                     TextFormField(
-                      controller: viewModel.titleController,
+                      controller: loginViewModel.titleController,
                       decoration: const InputDecoration(
                         icon: Icon(Icons.email),
                         border: OutlineInputBorder(), // 外枠付きデザイン
@@ -38,14 +38,14 @@ class LoginPage extends StatelessWidget {
                         print('$value');
                       },                      
                       onChanged: (text) {
-                        viewModel.setEmail(text);
+                        loginViewModel.setEmail(text);
                       },
                     ),
                     const SizedBox(
                       height: 8,
                     ),
                     TextFormField(
-                      controller: viewModel.authorController,
+                      controller: loginViewModel.authorController,
                       decoration: const InputDecoration(
                         icon: Icon(Icons.key),
                         border: OutlineInputBorder(), // 外枠付きデザイン
@@ -63,7 +63,7 @@ class LoginPage extends StatelessWidget {
                       },                      
                       onChanged:
                       (text) {
-                        viewModel.setPassword(text);
+                        loginViewModel.setPassword(text);
                       },
                       obscureText: true,
                     ),
@@ -72,11 +72,11 @@ class LoginPage extends StatelessWidget {
                     ),
                     ElevatedButton(
                       onPressed: () async {
-                        viewModel.startLoading();
+                        loginViewModel.startLoading();
 
                         // 追加の処理
                         try {
-                          await viewModel.login().then((value) => GoRouter.of(context).go('/todo_list'));
+                          await loginViewModel.login().then((value) => GoRouter.of(context).go('/todo_list'));
                         } catch (e) {
                           final snackBar = SnackBar(
                             backgroundColor: Colors.red,
@@ -85,7 +85,7 @@ class LoginPage extends StatelessWidget {
                           ScaffoldMessenger.of(context)
                               .showSnackBar(snackBar);
                         } finally {
-                          viewModel.endLoading();
+                          loginViewModel.endLoading();
                         }
                       },
                       child: const Text('ログイン'),
@@ -100,7 +100,7 @@ class LoginPage extends StatelessWidget {
                   ],
                 ),
               ),
-              if (viewModel.isLoading)
+              if (loginViewModel.isLoading)
                 Container(
                   color: Colors.black54,
                   child: const Center(

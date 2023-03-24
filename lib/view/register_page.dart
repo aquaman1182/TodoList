@@ -9,7 +9,7 @@ class RegisterPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = context.watch<RegisterViewModel>();
+    final RegisterViewModel registerViewModel = context.read();
     return Scaffold(
         appBar: AppBar(
           title: const Text('新規登録'),
@@ -30,7 +30,7 @@ class RegisterPage extends StatelessWidget {
                 child: Column(
                   children: [
                     TextFormField(
-                      controller: viewModel.titleController,
+                      controller: registerViewModel.titleController,
                       decoration: const InputDecoration(
                         icon: Icon(Icons.email),
                         border: OutlineInputBorder(), // 外枠付きデザイン
@@ -47,14 +47,14 @@ class RegisterPage extends StatelessWidget {
                         print('$value');
                       },
                       onChanged: (text) {
-                        viewModel.setEmail(text);
+                        registerViewModel.setEmail(text);
                       },
                     ),
                     const SizedBox(
                       height: 8,
                     ),
                     TextFormField(
-                      controller: viewModel.authorController,
+                      controller: registerViewModel.authorController,
                       decoration: const InputDecoration(
                         icon: Icon(Icons.key),
                         border: OutlineInputBorder(), // 外枠付きデザイン
@@ -71,7 +71,7 @@ class RegisterPage extends StatelessWidget {
                         print('$value');
                       },
                       onChanged: (text) {
-                        viewModel.setPassword(text);
+                        registerViewModel.setPassword(text);
                       },
                       obscureText: true,
                     ),
@@ -80,11 +80,11 @@ class RegisterPage extends StatelessWidget {
                     ),
                     ElevatedButton(
                       onPressed: () async {
-                        viewModel.startLoading();
+                        registerViewModel.startLoading();
 
                         // 追加の処理
                         try {
-                          await viewModel.signUp();
+                          await registerViewModel.signUp();
                           context.go("/");
                         } catch (e) {
                           final snackBar = SnackBar(
@@ -94,7 +94,7 @@ class RegisterPage extends StatelessWidget {
                           ScaffoldMessenger.of(context)
                               .showSnackBar(snackBar);
                         } finally {
-                          viewModel.endLoading();
+                          registerViewModel.endLoading();
                         }
                       },
                       child: const Text('登録する'),
@@ -102,7 +102,7 @@ class RegisterPage extends StatelessWidget {
                   ],
                 ),
               ),
-              if (viewModel.isLoading)
+              if (registerViewModel.isLoading)
                 Container(
                   color: Colors.black54,
                   child: const Center(

@@ -8,6 +8,7 @@ class AddTodoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final AddTodoViewModel addTodoViewModel = context.read();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Todoを追加'),
@@ -41,12 +42,12 @@ class AddTodoPage extends StatelessWidget {
               print('$value');
             },
               onChanged: (text) {
-                context.read<AddTodoViewModel>().task = text;
+                addTodoViewModel.task = text;
               },
             ),
             ElevatedButton(
               onPressed: () async {
-                await context.read<AddTodoViewModel>().addTodo();
+                await addTodoViewModel.addTodo();
                 context.go("/todo_list");
               },
               child: const Text('追加'),
