@@ -13,14 +13,15 @@ class TodoListViewModel extends ChangeNotifier {
     _subscribeTodoList(); // 追加
   }
 
-  void _subscribeTodoList() { // 追加
+  void _subscribeTodoList() {
+    // 追加
     _todoListSubscription?.cancel();
-    _todoListSubscription = _todoListRepository.fetchTodoListStream().listen((newTodoList) {
+    _todoListSubscription =
+        _todoListRepository.fetchTodoListStream().listen((newTodoList) {
       todoList = newTodoList;
-
-          for (var todo in todoList!) {
-      print('ID: ${todo.id}, Task: ${todo.task}, Name: ${todo.name}');
-    }
+      for (var todo in todoList!) {
+        print('ID: ${todo.id}, Task: ${todo.task}, Name: ${todo.name}');
+      }
       notifyListeners();
     });
   }
