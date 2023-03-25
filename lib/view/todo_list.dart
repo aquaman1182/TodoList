@@ -13,7 +13,9 @@ class TodoListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TodoListViewModel todoViewModel = context.read();
-    // ページ表示時に一度だけfetchTodoListを呼び出す
+    Future(() {
+      todoViewModel.subscribeTodoList();
+    });
 
     return Scaffold(
       appBar: AppBar(

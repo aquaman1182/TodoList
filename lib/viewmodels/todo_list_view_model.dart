@@ -5,19 +5,16 @@ import '../domain/tododata/todo.dart';
 
 class TodoListViewModel extends ChangeNotifier {
   List<Todo>? todoList;
-  final TodoListRepository _todoListRepository;
+  final TodoListRepository todoListRepository;
   StreamSubscription? _todoListSubscription; // 追加
 
-  TodoListViewModel({required TodoListRepository todoListRepository})
-      : _todoListRepository = todoListRepository {
-    _subscribeTodoList(); // 追加
-  }
+  TodoListViewModel({required this.todoListRepository});
 
-  void _subscribeTodoList() {
+  void subscribeTodoList() {
     // 追加
     _todoListSubscription?.cancel();
     _todoListSubscription =
-        _todoListRepository.fetchTodoListStream().listen((newTodoList) {
+        todoListRepository.fetchTodoListStream().listen((newTodoList) {
       todoList = newTodoList;
       for (var todo in todoList!) {
         print('ID: ${todo.id}, Task: ${todo.task}, Name: ${todo.name}');
@@ -33,16 +30,16 @@ class TodoListViewModel extends ChangeNotifier {
   }
 
   Future<void> delete(Todo todoList) async {
-    await _todoListRepository.delete(todoList);
+    await todoListRepository.delete(todoList);
     // await fetchTodoList(); 削除
   }
 
   Future<void> update(List<Todo> todoList) async {
-    await _todoListRepository.update(todoList);
+    await todoListRepository.update(todoList);
     // await fetchTodoList(); 削除
   }
 
   Future<void> logout() async {
-    await _todoListRepository.logout();
+    await todoListRepository.logout();
   }
 }
