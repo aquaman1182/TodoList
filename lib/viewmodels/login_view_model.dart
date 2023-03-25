@@ -23,8 +23,8 @@ class LoginViewModel extends ChangeNotifier {
   Future<String?> login(String email, String password) async {
     startLoading();
     try {
-      final user = UserClassData(email: email!, name: '', uid: '');
-      await _authRepository.login(user, password!);
+      final user = UserClassData(email: email, name: '', uid: '');
+      await _authRepository.login(user, password);
       endLoading();
       return null; // 認証成功時は null を返す
     } catch (e) {
