@@ -16,6 +16,7 @@
 //   }
 // }
 
+import 'package:gonput_2/domain/tododata/todo.dart';
 import 'package:gonput_2/models/db/database_manager.dart';
 
 class AddTodoRepository {
@@ -24,7 +25,7 @@ class AddTodoRepository {
   AddTodoRepository({required DatabaseManager databaseManager})
       : _databaseManager = databaseManager;
 
-  Future<void> addTodo(String task) async {
-    await _databaseManager.addTodo(task);
+  Future<void> addTodo(Todo todo) async {
+    await _databaseManager.addTodo(todo);
   }
 }

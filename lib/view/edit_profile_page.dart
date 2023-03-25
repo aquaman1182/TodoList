@@ -56,7 +56,7 @@ class EditProfilePage extends StatelessWidget {
                   onPressed: editProfileViewModel.isUpdated()
                       ? () {
                           // 追加の処理
-                          editProfileViewModel.update();
+                          editProfileViewModel.updateProfile();
                           context.go("/my_page");
                         }
                       : null,

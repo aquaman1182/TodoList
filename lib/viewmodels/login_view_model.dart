@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gonput_2/domain/userdata/userclassdata.dart';
 import 'package:gonput_2/models/repository/login_auth_repository.dart';
 
 class LoginViewModel extends ChangeNotifier {
@@ -22,20 +23,21 @@ class LoginViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setEmail(String email) {
-    this.email = email;
+  void setPassword(String password) {
+    this.password = password;
     notifyListeners();
   }
 
-  void setPassword(String password) {
-    this.password = password;
+  void setEmail(String email) {
+    this.email = email;
     notifyListeners();
   }
 
   Future<String?> login() async {
     startLoading();
     try {
-      await _authRepository.login(email!, password!);
+      final user = UserClassData(email: email!, name: '', uid: '');
+      await _authRepository.login(user, password!);
       endLoading();
       return null; // 認証成功時は null を返す
     } catch (e) {
@@ -44,3 +46,8 @@ class LoginViewModel extends ChangeNotifier {
     }
   }
 }
+
+
+
+
+

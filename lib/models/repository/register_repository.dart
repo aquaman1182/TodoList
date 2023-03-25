@@ -35,6 +35,8 @@
 //   }
 // }
 
+import 'package:gonput_2/domain/userdata/userclassdata.dart';
+
 import '../db/database_manager.dart';
 
 class RegisterRepository {
@@ -45,8 +47,8 @@ class RegisterRepository {
   RegisterRepository({required DatabaseManager databaseManager})
       : _databaseManager = databaseManager;
 
-  Future<void> signUp(String email, String password) async {
-    await _databaseManager.signUp(email, password);
+  Future<void> signUp(UserClassData user, String password) async {
+    await _databaseManager.signUp(user, password);
   }
 
   void setEmail(String email) {

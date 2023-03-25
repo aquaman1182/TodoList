@@ -14,7 +14,6 @@ class TodoListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final TodoListViewModel todoViewModel = context.read();
     // ページ表示時に一度だけfetchTodoListを呼び出す
-    todoViewModel.fetchTodoList();
 
     return Scaffold(
       appBar: AppBar(
@@ -61,7 +60,6 @@ class TodoListPage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           context.go('/add_todo');
-          await todoViewModel.fetchTodoList();
         },
         child: const Icon(Icons.add),
       ),

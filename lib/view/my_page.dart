@@ -10,7 +10,6 @@ class MyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final MyViewModel myViewModel = context.read();
-    myViewModel.fetchUser();
     return Scaffold(
       appBar: AppBar(
         title: const Text('マイページ'),
@@ -19,7 +18,6 @@ class MyPage extends StatelessWidget {
             icon: const Icon(Icons.edit),
             onPressed: () async {
               context.go("/edit_profile_page/:name");
-              await myViewModel.fetchUser();
             },
           ),
         ],
@@ -27,12 +25,12 @@ class MyPage extends StatelessWidget {
       body: Center(
         child: Consumer<MyViewModel>(
           builder: (context, model, child) {
-            if (!model.isFetched) {
+            if (model.user == null) {
               return const CircularProgressIndicator();
             }
-            //test
+         //test
             return Padding(
-              padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(8.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

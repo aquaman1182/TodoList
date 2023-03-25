@@ -23,6 +23,7 @@ mixin _$Todo {
   String get id => throw _privateConstructorUsedError;
   String get task => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
+  String get userId => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -34,7 +35,7 @@ abstract class $TodoCopyWith<$Res> {
   factory $TodoCopyWith(Todo value, $Res Function(Todo) then) =
       _$TodoCopyWithImpl<$Res, Todo>;
   @useResult
-  $Res call({String id, String task, String name});
+  $Res call({String id, String task, String name, String userId});
 }
 
 /// @nodoc
@@ -53,6 +54,7 @@ class _$TodoCopyWithImpl<$Res, $Val extends Todo>
     Object? id = null,
     Object? task = null,
     Object? name = null,
+    Object? userId = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -67,6 +69,10 @@ class _$TodoCopyWithImpl<$Res, $Val extends Todo>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      userId: null == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -77,7 +83,7 @@ abstract class _$$_TodoCopyWith<$Res> implements $TodoCopyWith<$Res> {
       __$$_TodoCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String task, String name});
+  $Res call({String id, String task, String name, String userId});
 }
 
 /// @nodoc
@@ -92,6 +98,7 @@ class __$$_TodoCopyWithImpl<$Res> extends _$TodoCopyWithImpl<$Res, _$_Todo>
     Object? id = null,
     Object? task = null,
     Object? name = null,
+    Object? userId = null,
   }) {
     return _then(_$_Todo(
       id: null == id
@@ -106,6 +113,10 @@ class __$$_TodoCopyWithImpl<$Res> extends _$TodoCopyWithImpl<$Res, _$_Todo>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      userId: null == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -113,7 +124,11 @@ class __$$_TodoCopyWithImpl<$Res> extends _$TodoCopyWithImpl<$Res, _$_Todo>
 /// @nodoc
 @JsonSerializable()
 class _$_Todo implements _Todo {
-  const _$_Todo({required this.id, required this.task, required this.name});
+  const _$_Todo(
+      {required this.id,
+      required this.task,
+      required this.name,
+      required this.userId});
 
   factory _$_Todo.fromJson(Map<String, dynamic> json) => _$$_TodoFromJson(json);
 
@@ -123,10 +138,12 @@ class _$_Todo implements _Todo {
   final String task;
   @override
   final String name;
+  @override
+  final String userId;
 
   @override
   String toString() {
-    return 'Todo(id: $id, task: $task, name: $name)';
+    return 'Todo(id: $id, task: $task, name: $name, userId: $userId)';
   }
 
   @override
@@ -136,12 +153,13 @@ class _$_Todo implements _Todo {
             other is _$_Todo &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.task, task) || other.task == task) &&
-            (identical(other.name, name) || other.name == name));
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.userId, userId) || other.userId == userId));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, task, name);
+  int get hashCode => Object.hash(runtimeType, id, task, name, userId);
 
   @JsonKey(ignore: true)
   @override
@@ -161,7 +179,8 @@ abstract class _Todo implements Todo {
   const factory _Todo(
       {required final String id,
       required final String task,
-      required final String name}) = _$_Todo;
+      required final String name,
+      required final String userId}) = _$_Todo;
 
   factory _Todo.fromJson(Map<String, dynamic> json) = _$_Todo.fromJson;
 
@@ -171,6 +190,8 @@ abstract class _Todo implements Todo {
   String get task;
   @override
   String get name;
+  @override
+  String get userId;
   @override
   @JsonKey(ignore: true)
   _$$_TodoCopyWith<_$_Todo> get copyWith => throw _privateConstructorUsedError;

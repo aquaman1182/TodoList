@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 class AddTodoPage extends StatelessWidget {
   static const routeName = '/addTodo';
 
+
   @override
   Widget build(BuildContext context) {
     final AddTodoViewModel addTodoViewModel = context.read();
@@ -38,9 +39,6 @@ class AddTodoPage extends StatelessWidget {
               }
               return null; // 問題ない場合はnullを返す
             }, 
-            onSaved: (value) => () { // this._formKey.currentState.save()でコールされる
-              print('$value');
-            },
               onChanged: (text) {
                 addTodoViewModel.task = text;
               },

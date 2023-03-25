@@ -11,6 +11,7 @@
 //   }
 // }
 
+import 'package:gonput_2/domain/userdata/userclassdata.dart';
 import 'package:gonput_2/models/db/database_manager.dart';
 
 class EditProfileRepository {
@@ -19,7 +20,8 @@ class EditProfileRepository {
   EditProfileRepository({required DatabaseManager databaseManager})
       : _databaseManager = databaseManager;
 
-  Future<void> update(String name) async {
-    await _databaseManager.updateProfile(name);
+  Future<void> update(UserClassData user) async {
+    await _databaseManager.updateProfile(user);
   }
+
 }

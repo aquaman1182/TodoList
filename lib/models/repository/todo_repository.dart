@@ -80,16 +80,16 @@ class TodoListRepository {
   TodoListRepository({required DatabaseManager databaseManager})
       : _databaseManager = databaseManager;
 
-  Future<List<Todo>> fetchTodoList() async {
-    return await _databaseManager.fetchTodoList();
+Stream<List<Todo>> fetchTodoListStream() {
+  return _databaseManager.fetchTodoListStream();
+}
+
+  Future<void> delete(Todo todoList) async {
+    await _databaseManager.delete(todoList);
   }
 
-  Future<void> delete(Todo todo) async {
-    await _databaseManager.delete(todo);
-  }
-
-  Future<void> update(List<Todo> todo) async {
-    await _databaseManager.updateTodos(todo);
+  Future<void> update(List<Todo> todoList) async {
+    await _databaseManager.updateTodos(todoList);
   }
 
   Future<void> logout() async {

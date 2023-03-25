@@ -1,3 +1,4 @@
+import 'package:gonput_2/domain/userdata/userclassdata.dart';
 import 'package:gonput_2/models/repository/add_todo_repository.dart';
 import 'package:gonput_2/models/repository/edit_profile_repository.dart';
 import 'package:gonput_2/models/repository/my_repository.dart';
@@ -72,13 +73,21 @@ List<SingleChildWidget> viewModels = [
   ),
 
   ChangeNotifierProvider<EditProfileViewModel>(
-    create: (context) => EditProfileViewModel(
-      editProfileRepository: context.read<EditProfileRepository>(),
+     create: (context) => EditProfileViewModel(
+        currentUserData: context.read<MyViewModel>().user ?? UserClassData(uid: '', name: '', email: ''),
+        editProfileRepository: context.read<EditProfileRepository>(),
+      )
+
+    //  EditProfileViewModel(
+    //   editProfileRepository: context.read<EditProfileRepository>(),
+
+      
     ),
-  ),
   ChangeNotifierProvider<AddTodoViewModel>(
     create: (context) => AddTodoViewModel(
-      addTodoRepository: context.read<AddTodoRepository>(), todoListRepository: TodoListRepository(databaseManager: DatabaseManager()),
+      addTodoRepository: context.read<AddTodoRepository>(), 
+      todoListRepository: TodoListRepository(databaseManager: DatabaseManager()), 
+      todoListViewModel: TodoListViewModel(todoListRepository: TodoListRepository(databaseManager: DatabaseManager())),
     ),
   ),
 ];

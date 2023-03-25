@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gonput_2/domain/userdata/userclassdata.dart';
 import 'package:gonput_2/models/repository/register_repository.dart';
 
 class RegisterViewModel extends ChangeNotifier {
@@ -32,8 +33,8 @@ class RegisterViewModel extends ChangeNotifier {
   }
 
   Future<void> signUp() async {
-    String? email;
+    UserClassData? user;
     String? password;
-    await _registerRepository.signUp(email!, password!);
+    await _registerRepository.signUp(user!, password!);
   }
 }
