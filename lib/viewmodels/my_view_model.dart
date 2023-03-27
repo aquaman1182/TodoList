@@ -7,10 +7,14 @@ class MyViewModel extends ChangeNotifier {
   final MyRepository myRepository;
 
   MyViewModel({required MyRepository myRepository})
-      : myRepository = myRepository {
-    myRepository.fetchUserStream().listen((userData) {
-      user = userData;
-      notifyListeners();
-    });
-  }
+      : myRepository = myRepository{
+        subscribeUser();
+      }
+
+      void subscribeUser() {
+        myRepository.fetchUserStream().listen((userData) {
+          user = userData;
+          notifyListeners();
+        });
+      }
 }

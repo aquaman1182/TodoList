@@ -8,8 +8,6 @@ import 'package:provider/provider.dart';
 class TodoListPage extends StatelessWidget {
   static const routeName = '/TodoListPage';
 
-  const TodoListPage({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     final TodoListViewModel todoViewModel = context.read();

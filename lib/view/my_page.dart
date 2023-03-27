@@ -10,6 +10,10 @@ class MyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final MyViewModel myViewModel = context.read();
+    Future(() {
+      myViewModel.subscribeUser();
+    });
+    
     return Scaffold(
       appBar: AppBar(
         title: const Text('マイページ'),
