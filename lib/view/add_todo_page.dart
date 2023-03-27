@@ -10,6 +10,9 @@ class AddTodoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AddTodoViewModel addTodoViewModel = context.read();
+    Future(() {
+      addTodoViewModel.updateTodos();
+    });
     return Scaffold(
       appBar: AppBar(
         title: const Text('Todoを追加'),

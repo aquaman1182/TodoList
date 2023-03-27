@@ -21,7 +21,7 @@ class AddTodoViewModel extends ChangeNotifier {
   final UserClassData currentUserData;
   final Todo todoList;
 
-  void updateTodos(Todo todoList) {
+  void updateTodos() {
     todoList.task;
     notifyListeners();
   }
