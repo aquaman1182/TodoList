@@ -28,9 +28,9 @@ class MyPage extends StatelessWidget {
             if (model.user == null) {
               return const CircularProgressIndicator();
             }
-         //test
+            //test
             return Padding(
-      padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

@@ -2,12 +2,12 @@ import 'package:gonput_2/domain/tododata/todo.dart';
 import 'package:gonput_2/models/db/database_manager.dart';
 
 class TasksAllRepository {
-  final DatabaseManager _databaseManager;
+  final DatabaseManager databaseManager;
 
   TasksAllRepository({required DatabaseManager databaseManager})
-      : _databaseManager = databaseManager;
+      : databaseManager = databaseManager;
 
   Stream<List<Todo>> fetchTodos() {
-  return _databaseManager.fetchTodos();
-}
+    return databaseManager.fetchTodos();
+  }
 }

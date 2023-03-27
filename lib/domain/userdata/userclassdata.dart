@@ -10,7 +10,7 @@ class UserClassData with _$UserClassData {
     required String name,
     required String uid,
   }) = _UserClassData;
-	
+
   factory UserClassData.fromJson(Map<String, dynamic> json) =>
-			_$UserClassDataFromJson(json);
+      _$UserClassDataFromJson(json);
 }

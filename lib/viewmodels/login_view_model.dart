@@ -3,10 +3,10 @@ import 'package:gonput_2/domain/userdata/userclassdata.dart';
 import 'package:gonput_2/models/repository/login_auth_repository.dart';
 
 class LoginViewModel extends ChangeNotifier {
-  final AuthRepository _authRepository;
+  final AuthRepository authRepository;
 
   LoginViewModel({required AuthRepository authRepository})
-      : _authRepository = authRepository;
+      : authRepository = authRepository;
 
   bool isLoading = false;
 
@@ -24,7 +24,7 @@ class LoginViewModel extends ChangeNotifier {
     startLoading();
     try {
       final user = UserClassData(email: email, name: '', uid: '');
-      await _authRepository.login(user, password);
+      await authRepository.login(user, password);
       endLoading();
       return null; // 認証成功時は null を返す
     } catch (e) {

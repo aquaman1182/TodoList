@@ -69,7 +69,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '343622634281',
     projectId: 'gonput2-251a5',
     storageBucket: 'gonput2-251a5.appspot.com',
-    iosClientId: '343622634281-v9vdq6dv0eev6ipcv8sq4984ugspt1ba.apps.googleusercontent.com',
+    iosClientId:
+        '343622634281-v9vdq6dv0eev6ipcv8sq4984ugspt1ba.apps.googleusercontent.com',
     iosBundleId: 'com.example.gonput2',
   );
 }

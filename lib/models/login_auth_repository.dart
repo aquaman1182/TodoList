@@ -1,30 +1,13 @@
-//修正前のコード
-// import 'package:firebase_auth/firebase_auth.dart';
-
-// class AuthRepository {
-//   Future<String?> login(String email, String password) async {
-//     try {
-//       await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
-//       final currentUser = FirebaseAuth.instance.currentUser;
-//       return currentUser?.uid;
-//     } on FirebaseAuthException catch (e) {
-//       return e.message;
-//     } catch (e) {
-//       return e.toString();
-//     }
-//   }
-// }
-
 import 'package:gonput_2/domain/userdata/userclassdata.dart';
 import 'package:gonput_2/models/db/database_manager.dart';
 
 class AuthRepository {
-  final DatabaseManager _databaseManager;
+  final DatabaseManager databaseManager;
 
   AuthRepository({required DatabaseManager databaseManager})
-      : _databaseManager = databaseManager;
+      : databaseManager = databaseManager;
 
   Future<String?> login(UserClassData user, String password) async {
-    return await _databaseManager.login(user, password);
+    return await databaseManager.login(user, password);
   }
 }

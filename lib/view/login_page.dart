@@ -73,7 +73,6 @@ class LoginPage extends StatelessWidget {
                   ElevatedButton(
                     onPressed: () async {
                       loginViewModel.startLoading();
-
                       // 追加の処理
                       try {
                         await loginViewModel.login(

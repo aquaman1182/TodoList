@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 
 class AddTodoPage extends StatelessWidget {
   static const routeName = '/addTodo';
-
+  final taskController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -22,25 +22,22 @@ class AddTodoPage extends StatelessWidget {
           ),
         ),
       ),
-
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: <Widget>[
             TextFormField(
-            autovalidateMode: AutovalidateMode.disabled, autofocus: true,
-            decoration: const InputDecoration(
-              labelText: "Let's add a task!", // ラベル
-              hintText: 'Taskを入力', // 入力ヒント
-            ), // 入力変化しても自動でチェックしない。trueにすると初期状態および入力が変化する毎に自動でvalidatorがコールされる
-            validator: (value) { // _formKey.currentState.validate()でコールされる
-              if (value!.isEmpty) {
-                return 'Please enter some text'; // エラー表示のメッセージを返す
-              }
-              return null; // 問題ない場合はnullを返す
-            }, 
-              onChanged: (text) {
-                addTodoViewModel.task = text;
+              controller: taskController,
+              decoration: const InputDecoration(
+                labelText: "Let's add a task!", // ラベル
+                hintText: 'Taskを入力', // 入力ヒント
+              ), // 入力変化しても自動でチェックしない。trueにすると初期状態および入力が変化する毎に自動でvalidatorがコールされる
+              validator: (value) {
+                // _formKey.currentState.validate()でコールされる
+                if (value!.isEmpty) {
+                  return 'Please enter some text'; // エラー表示のメッセージを返す
+                }
+                return null; // 問題ない場合はnullを返す
               },
             ),
             ElevatedButton(
