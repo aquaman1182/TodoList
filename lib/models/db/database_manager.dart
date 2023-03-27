@@ -13,28 +13,32 @@ import 'package:gonput_2/domain/userdata/userclassdata.dart';
       return userData?['name'] ?? '';
     }
   //みんなのタスク取得
-  Stream<List<Todo>> fetchTodos() async* {
-  await for (final snapshot in _db
-      .collection('todo')
-      .snapshots()) {
+Stream<List<Todo>> fetchTodos() async* {
+  await for (final snapshot in _db.collection('todo').snapshots()) {
     final List<Todo> todo = [];
 
     for (final doc in snapshot.docs) {
       final id = doc.id;
       final data = doc.data();
-      final task = data['task'];
-      final userId = data['userId']; 
+      final task = data['task'] ?? '';
 
+      if (data['userId'] == null || data['userId'] == '') {
+        continue; 
+      }
+
+      final userId = data['userId'];
       final userSnapshot = await _db.collection('users').doc(userId).get();
       final userData = userSnapshot.data();
       final name = userData?['name'] ?? '';
 
-      todo.add(Todo(id: id, task: task, name: name, userId: userId)); 
+      todo.add(Todo(id: id, task: task, name: name, userId: userId));
     }
-
     yield todo;
   }
 }
+
+
+
 
 
     // Future<Iterable<Todo>> fetchTodos(Todo todo) async {
