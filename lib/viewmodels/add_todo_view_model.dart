@@ -10,7 +10,6 @@ class AddTodoViewModel extends ChangeNotifier {
   final TodoListViewModel todoListViewModel;
 
   AddTodoViewModel({
-    required this.todoList,
     required this.currentUserData,
     required AddTodoRepository addTodoRepository,
     required TodoListViewModel todoListViewModel,
@@ -19,16 +18,22 @@ class AddTodoViewModel extends ChangeNotifier {
         todoListViewModel = todoListViewModel;
 
   final UserClassData currentUserData;
-  final Todo todoList;
+  
 
-  void updateTodos() {
-    todoList.task;
+  String task = '';
+
+  void updateTask(String newTask) {
+    task = newTask;
     notifyListeners();
   }
 
-  Future<void> addTodo() async {
-    // 新しいTodoオブジェクトを作成
-    final newTodo = Todo(id: '', task: todoList.task, name: '', userId: '');
+  Future<void> addTodo(String task) async {
+    final newTodo = Todo(
+      id: '',
+      task: task, 
+      name: currentUserData.name,
+      userId: currentUserData.uid,
+    );
 
     // 新しいTodoを追加
     await addTodoRepository.addTodo(newTodo);
