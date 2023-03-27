@@ -10,9 +10,6 @@ class AddTodoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AddTodoViewModel addTodoViewModel = context.read();
-    Future(() {
-      addTodoViewModel.updateTodos();
-    });
     return Scaffold(
       appBar: AppBar(
         title: const Text('Todoを追加'),
@@ -32,20 +29,21 @@ class AddTodoPage extends StatelessWidget {
             TextFormField(
               controller: taskController,
               decoration: const InputDecoration(
-                labelText: "Let's add a task!", // ラベル
-                hintText: 'Taskを入力', // 入力ヒント
-              ), // 入力変化しても自動でチェックしない。trueにすると初期状態および入力が変化する毎に自動でvalidatorがコールされる
+                labelText: "Let's add a task!", 
+                hintText: 'Taskを入力', 
+              ), 
               validator: (value) {
-                // _formKey.currentState.validate()でコールされる
                 if (value!.isEmpty) {
-                  return 'Please enter some text'; // エラー表示のメッセージを返す
+                  return 'Please enter some text';
                 }
-                return null; // 問題ない場合はnullを返す
+                return null;
               },
             ),
             ElevatedButton(
               onPressed: () async {
-                await addTodoViewModel.addTodo();
+                await addTodoViewModel.addTodo(
+                  taskController.text
+                );
                 context.go("/todo_list");
               },
               child: const Text('追加'),

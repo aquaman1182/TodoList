@@ -95,9 +95,8 @@ List<SingleChildWidget> viewModels = [
           TodoListRepository(databaseManager: DatabaseManager()),
       todoListViewModel: TodoListViewModel(
           todoListRepository:
-              TodoListRepository(databaseManager: DatabaseManager())),
-      currentUserData: UserClassData(email: "", name: "", uid: ""),
-      todoList: Todo(id: "", task: "", name: "", userId: ""),
+              TodoListRepository(databaseManager: DatabaseManager())), 
+              currentUserData: UserClassData(email: "", name: "", uid: ""),
     ),
   ),
   ChangeNotifierProvider<TasksAllViewModel>(
