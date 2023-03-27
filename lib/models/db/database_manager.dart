@@ -12,6 +12,36 @@ import 'package:gonput_2/domain/userdata/userclassdata.dart';
       final userData = userSnapshot.data();
       return userData?['name'] ?? '';
     }
+  //みんなのタスク取得
+  Stream<List<Todo>> fetchTodos() async* {
+  await for (final snapshot in _db
+      .collection('todo')
+      .snapshots()) {
+    final List<Todo> todo = [];
+
+    for (final doc in snapshot.docs) {
+      final id = doc.id;
+      final data = doc.data();
+      final task = data['task'];
+      final userId = data['userId']; 
+
+      final userSnapshot = await _db.collection('users').doc(userId).get();
+      final userData = userSnapshot.data();
+      final name = userData?['name'] ?? '';
+
+      todo.add(Todo(id: id, task: task, name: name, userId: userId)); 
+    }
+
+    yield todo;
+  }
+}
+
+
+    // Future<Iterable<Todo>> fetchTodos(Todo todo) async {
+    //   final docs = await _db.collection('todo').get();
+    //   final todos = docs.docs.map((doc) => Todo(id: todo.id, task: todo.task, name: todo.name, userId: todo.userId));
+    //   return todos;
+    // }
 
         //修正済み　動作確認完了
 Future<void> addTodo(Todo todo) async {
@@ -36,18 +66,6 @@ Future<void> addTodo(Todo todo) async {
 }
 
 
-    //修正前
-    // Future<void> addTodo(String task) async {
-    //   final user = FirebaseAuth.instance.currentUser;
-    //   final userId = user?.uid ?? 'ナナシさん';
-    //   final collection = FirebaseFirestore.instance.collection('todo');
-    //   await collection.add({
-    //     'task': task,
-    //     'createdAt': Timestamp.now(),
-    //     'isDone': false,
-    //     'userId': userId,
-    //   });
-    // }
     //修正済　動作確認済
       Future<void> updateProfile(UserClassData user) async {
         await _db.collection('users').doc(user.uid).update(user.toJson(),);
@@ -88,24 +106,6 @@ Future<void> addTodo(Todo todo) async {
             });
       }
 
-
-
-    //修正前
-    // Future<Map<String, String?>?> fetchUser() async {
-    //   final user = FirebaseAuth.instance.currentUser;
-    //   if (user == null) return null;
-
-    //   // ユーザーのメールアドレスを取得
-    //   final email = user.email;
-
-    //   final snapshot =
-    //       await _db.collection('users').doc(user.uid).get();
-    //   final data = snapshot.data();
-    //   if (data == null) return null;
-    //   final name = data['name'];
-    //   return {'email': email, 'name': name};
-    // }
-
   //修正済　動作確認済
 Future<void> signUp(UserClassData user, String password) async {
     if (user.email.isNotEmpty && password.isNotEmpty) {
@@ -122,37 +122,6 @@ Future<void> signUp(UserClassData user, String password) async {
     }
   }
 
-    //修正前
-    // Future<List<Todo>> fetchTodoList() async {
-    //   await Firebase.initializeApp();
-    //   final user = FirebaseAuth.instance.currentUser;
-    //   if (user == null) return [];
-
-    //   final snapshot = await FirebaseFirestore.instance
-    //       .collection('todo')
-    //       .where('userId', isEqualTo: user.uid)
-    //       .get();
-
-    //   final List<Todo> todo = [];
-
-    //   for (final doc in snapshot.docs) {
-    //     final id = doc.id;
-    //     final data = doc.data();
-    //     final task = data['task'];
-    //     final userId = data['userId'];
-
-    //     final userSnapshot = await FirebaseFirestore.instance
-    //         .collection('users')
-    //         .doc(userId)
-    //         .get();
-    //     final userData = userSnapshot.data();
-    //     final name = userData?['name'] ?? '';
-
-    //     todo.add(Todo(id: id, task: task, name: name));
-    //   }
-
-    //   return todo;
-    // }
     //修正済　動作確認済
 Stream<List<Todo>> fetchTodoListStream() async* {
   final user = FirebaseAuth.instance.currentUser;

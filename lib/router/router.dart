@@ -5,6 +5,7 @@ import 'package:gonput_2/view/edit_profile_page.dart';
 import 'package:gonput_2/view/login_page.dart';
 import 'package:gonput_2/view/my_page.dart';
 import 'package:gonput_2/view/register_page.dart';
+import 'package:gonput_2/view/tasks_all_page.dart';
 
 import '../view/todo_list.dart';
 
@@ -61,6 +62,13 @@ GoRouter createGoRouter() {
             );
           },
         ),
+        GoRoute(
+          path: '/tasks_all',
+          pageBuilder: (BuildContext context, GoRouterState state) => MaterialPage(
+            key: state.pageKey,
+            child: TasksAllPage(),
+          ),
+      ),
     ],
   );
 }

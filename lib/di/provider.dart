@@ -4,11 +4,13 @@ import 'package:gonput_2/models/repository/edit_profile_repository.dart';
 import 'package:gonput_2/models/repository/my_repository.dart';
 import 'package:gonput_2/models/repository/register_repository.dart';
 import 'package:gonput_2/models/repository/todo_repository.dart';
+import 'package:gonput_2/models/repository/tsaks_all_repository.dart';
 import 'package:gonput_2/viewmodels/add_todo_view_model.dart';
 import 'package:gonput_2/viewmodels/edit_profile_view_model.dart';
 import 'package:gonput_2/viewmodels/login_view_model.dart';
 import 'package:gonput_2/viewmodels/my_view_model.dart';
 import 'package:gonput_2/viewmodels/register_view_model.dart';
+import 'package:gonput_2/viewmodels/tasks_all_view_model.dart';
 import 'package:gonput_2/viewmodels/todo_list_view_model.dart';
 import 'package:provider/provider.dart';
 import '../models/db/database_manager.dart';
@@ -48,6 +50,9 @@ List<SingleChildWidget> dependentModels = [
     ProxyProvider<DatabaseManager, AddTodoRepository>(
     update: (_, dbManager, repo) => AddTodoRepository(databaseManager: dbManager),
   ),
+      ProxyProvider<DatabaseManager, TasksAllRepository>(
+    update: (_, dbManager, repo) => TasksAllRepository(databaseManager: dbManager),
+  ),
 ];
 
 List<SingleChildWidget> viewModels = [
@@ -71,23 +76,22 @@ List<SingleChildWidget> viewModels = [
       myRepository: context.read<MyRepository>(),
     ),
   ),
-
   ChangeNotifierProvider<EditProfileViewModel>(
      create: (context) => EditProfileViewModel(
         currentUserData: context.read<MyViewModel>().user ?? UserClassData(uid: '', name: '', email: ''),
         editProfileRepository: context.read<EditProfileRepository>(),
       )
-
-    //  EditProfileViewModel(
-    //   editProfileRepository: context.read<EditProfileRepository>(),
-
-      
     ),
   ChangeNotifierProvider<AddTodoViewModel>(
     create: (context) => AddTodoViewModel(
       addTodoRepository: context.read<AddTodoRepository>(), 
       todoListRepository: TodoListRepository(databaseManager: DatabaseManager()), 
       todoListViewModel: TodoListViewModel(todoListRepository: TodoListRepository(databaseManager: DatabaseManager())),
+    ),
+  ),
+    ChangeNotifierProvider<TasksAllViewModel>(
+    create: (context) => TasksAllViewModel(
+      tasksAllRepository: context.read<TasksAllRepository>(),
     ),
   ),
 ];
