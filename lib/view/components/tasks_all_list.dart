@@ -8,6 +8,9 @@ class TasksAllList extends StatelessWidget {
   Widget build(BuildContext context) {
     final TasksAllViewModel tasksAllViewModel = context.read();
     final List<Todo>? tasks = tasksAllViewModel.allTasksList;
+    Future(() {
+      tasksAllViewModel.subscribeAllTasksList();
+    });
 
     if (tasks == null) {
       return Center(child: CircularProgressIndicator());
