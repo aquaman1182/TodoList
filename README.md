@@ -1,16 +1,11 @@
-# gonput_2
+# TodoList
 
-A new Flutter project.
+このリポジトリでは、Flutterを用いてTodoListアプリを開発しました。アプリはFirebase、GoRouter、Freezed、およびProviderを使用しています。また、MVVMアーキテクチャを採用して開発が行われました。機能としては、以下のものが含まれています。
 
-## Getting Started
+- ログイン機能
+- 新規登録機能
+- 個人のTodoList表示ページ
+- Todo追加ページ
+- みんなのTodoListを表示するページ
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+これらの技術と機能を組み合わせることで、ユーザーがタスクを追加、編集、削除し、アプリ間でリアルタイムにデータが同期される機能を提供しています。また、MVVMアーキテクチャを用いることで、コードの整理とメンテナンス性が向上しています。

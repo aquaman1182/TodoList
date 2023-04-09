@@ -1,4 +1,3 @@
-import 'package:gonput_2/domain/tododata/todo.dart';
 import 'package:gonput_2/domain/userdata/userclassdata.dart';
 import 'package:gonput_2/models/repository/add_todo_repository.dart';
 import 'package:gonput_2/models/repository/edit_profile_repository.dart';
