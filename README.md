@@ -12,16 +12,28 @@
 
 下記が動作画面のスクリーンショットです。
 
-![ログインページ](./docs/Screenshot_1681012363.png)
+<br>
 
-![新規登録ページ](./docs/Screenshot_1681012365.png)
+<img src="./docs/Screenshot_1681012363.png" width="200" height="auto">
 
-![TodoListページ](./docs/Screenshot_1681012354.png)
+<br/>
 
-![Todo追加ページ](./docs/Screenshot_1681012372.png)
+<img src="./docs/Screenshot_1681012365.png" width="200" height="auto">
 
-![マイページ](./docs/Screenshot_1681012357.png)
+</br>
 
-![みんなのTodoList](./docs/Screenshot_1681012359.png)
+<img src="./docs/Screenshot_1681012354.png" width="200" height="auto">
+
+<br>
+
+<img src="./docs/Screenshot_1681012372.png" width="200" height="auto">
+
+<br>
+
+<img src="./docs/Screenshot_1681012357.png" width="200" height="auto">
+
+<br>
+
+<img src="./docs/Screenshot_1681012359.png" width="200" height="auto">
 
 
